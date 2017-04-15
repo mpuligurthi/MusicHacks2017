@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class GameRunner : MonoBehaviour {
     int score = 0;
-    double time = 90;
+    double time = 120;
     public GameObject SongString;
+    public GameObject TimeString;
+    public GameObject ScoreString;
+    public GameObject GameOver;
     List<string> songs = new List<string>();
 
     void Start()
@@ -17,25 +21,44 @@ public class GameRunner : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
-        time -= Time.deltaTime;
-       
-	}
+        TimeString.GetComponent<Text>().text = "" + (int)(time -= Time.deltaTime);
+
+        if (time <= 0)
+        {
+            GameOver.SetActive(true);
+            Time.timeScale = 0;
+        }
+}
 
     public void Right()
     {
-        score++;
-        NewRandomSong();
+        if (time > 0)
+        {
+            ScoreString.GetComponent<Text>().text = "" + ++score;
+            NewRandomSong();
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     public void Pass()
     {
         NewRandomSong();
+        time -= 10;
     }
 
     void NewRandomSong()
     {
-
-        SongString.GetComponent<Text>().text = songs[Random.Range(0, songs.Count)];
+        if (time > 0)
+        {
+            SongString.GetComponent<Text>().text = songs[Random.Range(0, songs.Count)];
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
 
