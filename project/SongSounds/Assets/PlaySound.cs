@@ -35,6 +35,7 @@ public class PlaySound : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("click");
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), -Vector2.up);
 
             if (hit.collider != null)

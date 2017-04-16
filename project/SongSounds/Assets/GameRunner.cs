@@ -16,6 +16,7 @@ public class GameRunner : MonoBehaviour {
 
     void Start()
     {
+        Time.timeScale = 1;
         ReadSongs();
         NewRandomSong();
     }
@@ -39,6 +40,7 @@ public class GameRunner : MonoBehaviour {
         }
         else
         {
+            Time.timeScale = 1;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
@@ -53,6 +55,7 @@ public class GameRunner : MonoBehaviour {
     {
         if (time > 0)
         {
+            Time.timeScale = 1;
             SongString.GetComponent<Text>().text = songs[Random.Range(0, songs.Count)];
         }
         else
